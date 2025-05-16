@@ -32,7 +32,7 @@ class JournalManager
         // Write the content to the file
         File.WriteAllText(filename, content);
 
-        Console.WriteLine($"✅ Journal entry saved as: {filename}");
+        Console.WriteLine($" Journal entry saved as: {filename}");
     }
 }
 
@@ -51,41 +51,76 @@ class PromptManager
         "What scripture did you read today?"
     };
 
+public static string ShuffleingPrompts()
+{
+    int index = ShuffleList.GetNextPromptIndex();
+    return prompts[index];
+}
+
     private static Random rng = new Random();
 
     class ShuffleList
     {
-    public static List<int> past_prompts = new List<int>() { };
-    public static List<int> next_prompts = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8 }; // number of prompts
+        public static List<int> past_prompts = new List<int>() { };
+        public static List<int> next_prompts = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8 }; // number of prompts
 
-    private static Random rng = new Random(); // putting in random
+        private static Random rng = new Random(); // putting in random
 
-    // gets the index of the next prompt to use
-    public static int GetNextPromptIndex()
-    {
-        // If all prompts have been used, reset
-        if (next_prompts.Count == 0)
+        // gets the index of the next prompt to use
+        public static int GetNextPromptIndex()
         {
-            Reset();
+            // If all prompts have been used, reset
+            if (next_prompts.Count == 0)
+            {
+                Reset();
+            }
+
+            // choose random index from the remaining prompts
+            int randomIndex = rng.Next(next_prompts.Count);
+            int selected = next_prompts[randomIndex];
+
+            // remove from next, add to past
+            next_prompts.RemoveAt(randomIndex);
+            past_prompts.Add(selected);
+
+            return selected;
         }
 
-        // choose random index from the remaining prompts
-        int randomIndex = rng.Next(next_prompts.Count);
-        int selected = next_prompts[randomIndex];
-
-        // remove from next, add to past
-        next_prompts.RemoveAt(randomIndex);
-        past_prompts.Add(selected);
-
-        return selected;
+        // resets the shuffle cycle
+        public static void Reset()
+        {
+            next_prompts = new List<int>(past_prompts);
+            past_prompts.Clear();
+        }
     }
+}
 
-    // resets the shuffle cycle
-    public static void Reset()
+
+class Program
+{
+    static void Main(string[] args)
     {
-        next_prompts = new List<int>(past_prompts);
-        past_prompts.Clear();
-    }
+        Console.WriteLine("Welcome to the Journal Program!");
+        Console.WriteLine("Type 'END' on a new line when you're done writing.\n");
+
+        // 1. Get the next prompt from the PromptManager
+        string prompt = PromptManager.ShuffleingPrompts();
+
+        // 2. Show the prompt
+        Console.WriteLine("📝 Prompt:");
+        Console.WriteLine(prompt);
+        Console.WriteLine("\nStart your journal entry below:");
+
+        // 3. Capture multi-line user input
+        string entryText = "";
+        string line;
+        while ((line = Console.ReadLine()) != null && line.Trim().ToUpper() != "END")
+        {
+            entryText += line + "\n";
+        }
+
+        // 4. Save the entry
+        JournalManager.SaveEntry(prompt, entryText);
     }
 }
 
