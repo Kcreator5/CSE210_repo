@@ -8,15 +8,6 @@ class JournalManager
     // Path to the folder where journal entries will be stored
     private static string journalfolder = "JournalEntries";
 
-    // This ensures the folder exists; if not, it creates it
-    public static void InitializeFolder()
-    {
-        if (!Directory.Exists(journalfolder))
-        {
-            Directory.CreateDirectory(journalfolder);
-        }
-    }
-
     // This method saves a journal entry as a .txt file
     public static void SaveEntry(string prompt, string entryText)
     {
@@ -100,27 +91,45 @@ class Program
 {
     static void Main(string[] args)
     {
+        // JournalManager.InitializeFolder(); // Make sure folder exists
+
         Console.WriteLine("Welcome to the Journal Program!");
         Console.WriteLine("Type 'END' on a new line when you're done writing.\n");
 
-        // 1. Get the next prompt from the PromptManager
+        // this gets the next prompt from the PromptManager
         string prompt = PromptManager.ShuffleingPrompts();
 
-        // 2. Show the prompt
-        Console.WriteLine("📝 Prompt:");
+        // this writes the prompt
+        Console.WriteLine("Question of the day:");
         Console.WriteLine(prompt);
         Console.WriteLine("\nStart your journal entry below:");
 
-        // 3. Capture multi-line user input
+        // Capture multi-line user input
         string entryText = "";
         string line;
         while ((line = Console.ReadLine()) != null && line.Trim().ToUpper() != "END")
         {
             entryText += line + "\n";
         }
-
-        // 4. Save the entry
-        JournalManager.SaveEntry(prompt, entryText);
     }
+
+    public static void SaveEntry(string prompt, string entryText)
+    {
+        // Defining the path for the journal. 
+        string filePath = "prove/Develop02/JournalEntries.text";
+
+        // Format the entry with date and prompt
+        string content = $"Date: {DateTime.Now}\n Question of the day: {prompt}\n\nEntry:\n{entryText}\n";
+        content += "--------------------------\n"; // optional separator
+
+        // Append the content to the file
+        File.AppendAllText(filePath, content);
+
+        Console.WriteLine($"Entry appended to: {filePath}");
+        
+    }
+
+    
 }
+
 
