@@ -118,7 +118,7 @@ class PromptEntry
 
         Console.Clear(); // This clears the terminal. 
 
-        // this writes the prompt..
+        // this writes the prompt.
         Console.WriteLine(prompt);
 
         Console.WriteLine("\nWrite your journal entry below");
