@@ -10,17 +10,16 @@ class menu
     bool running = true;
 
     while (running)
-    {
+    {  
         Console.WriteLine("\nWelcome back to your journal!");
 
         Console.WriteLine("What would you like to do?");
-        Console.WriteLine("-----------------------------------------");
+        Console.WriteLine("-----------------------------------");
         Console.WriteLine("[1] Write an entry");
         Console.WriteLine("[2] Start with a prompt");
         Console.WriteLine("[3] View past entries");
-        Console.WriteLine("[4] Exit program");
-        Console.WriteLine("-----------------------------------------");
-
+        Console.WriteLine("[4] Exit the program");
+        Console.WriteLine("-----------------------------------");
         Console.Write("Enter your choice: ");
         string input = Console.ReadLine();
 
@@ -132,22 +131,24 @@ class PromptEntry
             entryText += line + "\n";
         }
         SaveEntry(prompt, entryText);
+        
     }
 
     public static void SaveEntry(string prompt, string entryText)
     {
-        // Defining the path for the journal. 
+        // locating the path for where the journal entry is to be saved.
         string filePath = "../../../JournalEntries.text";
 
-        // Format the entry with date and prompt
-        string content = $"Date: {DateTime.Now}\n Question of the day: {prompt}\n\nEntry:\n{entryText}\n";
-        content += "--------------------------\n"; // optional separator
+        // Formating the entry with date and prompt.
+        string content = $"Date: {DateTime.Now}\n {prompt}\n\nEntry:\n{entryText}\n";
+        content += "-------\n"; // optional separator
 
-        // Append the content to the file
+        // Saving the content to the file
         File.AppendAllText(filePath, content);
 
-        Console.WriteLine($"Entry appended to: {filePath}");
+        //Console.WriteLine($"Entry saved to: {filePath}");
         
+        Console.Clear();
     }
 
 }
@@ -162,7 +163,7 @@ class WriteEntry
 
         Console.Clear(); // clears the terminal. 
 
-        Console.WriteLine("\nWrite your journal entry below");
+        Console.WriteLine("\nWrite the journal entry below");
         Console.WriteLine("Type 'END' on a new line when you're done writing.\n");
 
         // Capture multi-line user input
@@ -181,79 +182,83 @@ class WriteEntry
         string filePath = "../../../JournalEntries.text";
 
         // Format the entry with date and prompt
-        string content = $"Date: {DateTime.Now}\n Question of the day: {prompt}\n\nEntry:\n{entryText}\n";
-        content += "--------------------------\n"; // optional separator
+        string content = $"Date: {DateTime.Now}\n {prompt}\n\nEntry:\n{entryText}\n";
+        content += "--------------------\n"; // optional separator
 
         // Append the content to the file
         File.AppendAllText(filePath, content);
 
-        Console.WriteLine($"Entry appended to: {filePath}");
+        // this was used to trubleshoot the file path.
+        // Console.WriteLine($"Entry appended to: {filePath}");
         
+        Console.Clear();
     }
     
 }
 
 class LoadEntries
 {
+
     public static void LoadEntriesByDate()
-{
-    string filePath = "../../../JournalEntries.text";
-
-    if (!File.Exists(filePath))
     {
-        Console.WriteLine("No journal entries found.");
-        return;
-    }
+        string filePath = "../../../JournalEntries.text";
 
-    Console.Write("Enter the date to search for (format: MM-DD-YYYY): ");
-    string targetDate = Console.ReadLine().Trim();
-
-    string[] lines = File.ReadAllLines(filePath);
-    bool entryFound = false;
-    bool printing = false;
-
-    Console.WriteLine($"\n Entries for {targetDate}:");
-    Console.WriteLine("-----------------------------------------");
-
-    foreach (string line in lines)
-    {
-        if (line.StartsWith("Date: "))
+        if (!File.Exists(filePath))
         {
-            string datePart = line.Substring(6, 10); // Extracts "YYYY-MM-DD"
-            if (DateTime.TryParse(datePart, out DateTime parsedDate))
-            {
-                string formattedDate = parsedDate.ToString("MM-dd-yyyy"); // Reformat to match user input
-                printing = formattedDate == targetDate;
+            Console.WriteLine("No journal entries found on that day.");
+            return;
+        }
 
-                if (printing)
+        Console.Write("Enter the date to search (format: MM-DD-YYYY): example: '05-27-2025' ");
+        string targetDate = Console.ReadLine().Trim();
+
+        string[] lines = File.ReadAllLines(filePath);
+        bool entryFound = false;
+        bool printing = false;
+
+        Console.WriteLine($"\n Entries for {targetDate}:");
+        Console.WriteLine("-------------------------------------");
+
+        foreach (string line in lines)
+        {
+            if (line.StartsWith("Date: "))
+            {
+                string datePart = line.Substring(6, 10); // Extracts "YYYY-MM-DD"
+                if (DateTime.TryParse(datePart, out DateTime parsedDate))
                 {
-                    entryFound = true;
-                    Console.WriteLine(); // spacing before entry
-                    Console.WriteLine(line); // print the matching Date line
+                    string formattedDate = parsedDate.ToString("MM-dd-yyyy"); // Reformat to match user input
+                    printing = formattedDate == targetDate;
+
+                    if (printing)
+                    {
+                        entryFound = true;
+                        Console.WriteLine(); // spacing before entry
+                        Console.WriteLine(line); // print the matching date line
+                    }
+                }
+                else
+                {
+                    printing = false;
                 }
             }
-            else
+            else if (printing)
             {
-                printing = false;
+                Console.WriteLine(line);
+
+                if (line.StartsWith("--------------------------"))
+                {
+                    printing = false; // Stop after the entry separator
+                }
             }
         }
-        else if (printing)
+
+        if (!entryFound)
         {
-            Console.WriteLine(line);
-
-            if (line.StartsWith("--------------------------"))
-            {
-                printing = false; // Stop after the entry separator
-            }
+            Console.WriteLine("No entries found for that date.");
         }
-    }
+        Console.WriteLine("-------------------------------------");
 
-    if (!entryFound)
-    {
-        Console.WriteLine("No entries found for that date.");
     }
-    Console.WriteLine("-----------------------------------------");
-}
 
 }
 
