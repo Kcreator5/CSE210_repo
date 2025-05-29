@@ -5,7 +5,7 @@ class Program
     public static void Main(string[] args)
     {
         Console.WriteLine("Hello Develop03 World!");
-        Console.WriteLine("Hello us!");
+        Console.WriteLine("Hello us! more text, and more");
         
     }
 }
