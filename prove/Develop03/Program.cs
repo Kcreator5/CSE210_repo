@@ -6,12 +6,8 @@ class Program
     {
         Verse verse = new Verse();
         Blanking blanking = new Blanking();
-        // Console.WriteLine("");
-        // Console.WriteLine("Enter a sentence or paragraph:");
 
-        // string input = Console.ReadLine();
-
-        verse.SetOriginalText("2 And I seal up these records, after I have spoken a few words by way of exhortation unto you. Moroni 10:2 "); // 'input'
+        verse.SetOriginalText(" Moroni 10:2 And I seal up these records, after I have spoken a few words by way of exhortation unto you."); // 'input'
 
         Console.Clear();
 
