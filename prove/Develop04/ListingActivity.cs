@@ -4,6 +4,7 @@ using System.Threading;
 
 class listing_activity
 {
+    
     private int duration;
     private Random rng = new Random();
     private List<string> items = new List<string>();
@@ -39,12 +40,13 @@ class listing_activity
         Console.WriteLine("\nGet ready...");
         breathing_activity.ShowSpinner(3);
     }
-    private ShuffleList promptPicker;
+    
+    // private ShuffleList promptPicker;
     public void Run()
     {
         Console.Clear();
 
-        string prompt = prompts[promptPicker.GetNextIndex()];
+        string prompt = prompts[rng.Next(prompts.Count)];
         Console.WriteLine($"\nPrompt: {prompt}");
         Console.WriteLine("You will have a moment to think, then begin listing.\n");
 

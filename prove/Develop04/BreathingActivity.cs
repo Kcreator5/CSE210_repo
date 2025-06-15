@@ -32,13 +32,13 @@ class breathing_activity
         while (timePassed < duration)
         {
             Console.Write("\nBreathe in... ");
-            Countdown(3);
+            Countdown(6);
             timePassed += 3;
 
             if (timePassed >= duration) break;
 
             Console.Write("Breathe out... ");
-            Countdown(3);
+            Countdown(6);
             timePassed += 3;
         }
     }
@@ -56,6 +56,15 @@ class breathing_activity
         {
             Console.Write(i + " ");
             Thread.Sleep(1000);
+            if (i < 9)
+            {
+                Console.Write("\b\b");
+            }
+            else
+            { 
+                Console.Write("\b");
+            }
+            
         }
         Console.WriteLine();
     }
@@ -63,14 +72,14 @@ class breathing_activity
     public static void ShowSpinner(int seconds)
 {
     string[] spinner = { ":D", ":I"};
-    int endTime = Environment.TickCount + (seconds * 1000);
+    int endTime = Environment.TickCount + (seconds * 2000);
 
     int i = 0;
     while (Environment.TickCount < endTime)
     {
         Console.Write(spinner[i % spinner.Length]);
         Thread.Sleep(150);
-        Console.Write("\b");
+        Console.Write("\b\b");
         i++;
     }
 }
