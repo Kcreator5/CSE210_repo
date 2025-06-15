@@ -36,17 +36,19 @@ class listing_activity
             Console.Write("Please enter a valid positive number: ");
             input = Console.ReadLine();
         }
+         
 
         Console.WriteLine("\nGet ready...");
+        promptPicker = new ShuffleList(prompts.Count);
         breathing_activity.ShowSpinner(3);
     }
     
-    // private ShuffleList promptPicker;
+    private ShuffleList promptPicker;
     public void Run()
     {
         Console.Clear();
 
-        string prompt = prompts[rng.Next(prompts.Count)];
+        string prompt = prompts[promptPicker.GetNextIndex()];
         Console.WriteLine($"\nPrompt: {prompt}");
         Console.WriteLine("You will have a moment to think, then begin listing.\n");
 

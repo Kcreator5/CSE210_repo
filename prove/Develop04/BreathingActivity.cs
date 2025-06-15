@@ -71,14 +71,14 @@ class breathing_activity
 
     public static void ShowSpinner(int seconds)
 {
-    string[] spinner = { ":D", ":I"};
-    int endTime = Environment.TickCount + (seconds * 2000);
+    string[] spinner = { "D", "I"};
+    int endTime = Environment.TickCount + (seconds * 1000);
 
     int i = 0;
     while (Environment.TickCount < endTime)
     {
-        Console.Write(spinner[i % spinner.Length]);
-        Thread.Sleep(150);
+        Console.Write(":" + spinner[i % spinner.Length]);
+        Thread.Sleep(1000);
         Console.Write("\b\b");
         i++;
     }

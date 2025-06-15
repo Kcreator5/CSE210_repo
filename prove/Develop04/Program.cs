@@ -8,7 +8,6 @@ class Program
         breathing_activity breathing = new breathing_activity();
         reflection_activity reflection = new reflection_activity();
         listing_activity listing = new listing_activity();
-
         
         bool running = true;
 
