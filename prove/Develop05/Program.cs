@@ -13,10 +13,11 @@ class menu
 
         Console.WriteLine("What would you like to do?");
         Console.WriteLine("-----------------------------------");
-        Console.WriteLine("[1] Write an entry");
-        Console.WriteLine("[2] Start with a prompt");
-        Console.WriteLine("[3] View past entries");
-        Console.WriteLine("[4] Exit the program");
+        Console.WriteLine("[1] Simple goal");
+        Console.WriteLine("[2] Checklist ");
+        Console.WriteLine("[3] Repeating goal");
+        Console.WriteLine("[4] Loading Goal");
+        Console.WriteLine("[5] Exit the program");
         Console.WriteLine("-----------------------------------");
         Console.Write("Enter your choice: ");
         string input = Console.ReadLine();
@@ -24,15 +25,18 @@ class menu
         switch (input)
         {
             case "1":
-                WriteEntry.WritingEntry();
+                Simple.simplegoal();
                 break;
             case "2":
-                PromptEntry.PromptingEntry();
+                _List.checklist();
                 break;
             case "3":
-                LoadEntries.LoadEntriesByDate(); 
+                Repeat.repeating_goal(); 
                 break;
             case "4":
+                loading.load();
+                break;
+            case "5":
                 running = false;
                 Console.WriteLine("Goodbye!");
                 break;
@@ -48,6 +52,6 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Develop05 World!");
+        menu.RunMenu();
     }
 }
