@@ -1,11 +1,15 @@
 using System;
+using System.Security.Cryptography.X509Certificates;
+
 
 
 class menu
-{ 
+{
+    public static int points = 0;
     public static void RunMenu()
 {
     bool running = true;
+    
 
     while (running)
     {  
