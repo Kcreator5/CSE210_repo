@@ -13,7 +13,7 @@ class menu
 
     while (running)
     {  
-        Console.WriteLine("\nWelcome back to your journal!");
+        Console.WriteLine("\nWelcome back to your Goal tracker!");
 
         Console.WriteLine("What would you like to do?");
         Console.WriteLine("-----------------------------------");
