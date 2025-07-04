@@ -1,6 +1,30 @@
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections.Generic;
+using System.Media;
+
+/* I tryed to impliment music, I couldn't get it working.
+using WMPLib;
+
+public class MusicPlayer
+{
+    private static WindowsMediaPlayer player;
+
+    public static void PlayStartupMusic()
+    {
+        try
+        {
+            player = new WindowsMediaPlayer();
+            player.URL = "theme.mp3";  // make sure it's in your output folder
+            player.controls.play();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Could not play MP3: " + ex.Message);
+        }
+    }
+}
+*/
 
 class menu
 {
@@ -54,6 +78,10 @@ class Program
 {
     static void Main(string[] args)
     {
+
+       // MusicPlayer.PlayStartupMusic();
+
+        
         menu.RunMenu();
     }
 }

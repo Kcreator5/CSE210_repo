@@ -64,7 +64,7 @@ public class loading
         if (selectedGoal.IsComplete())
         {
             loadedGoals.RemoveAt(choice - 1);
-            Console.WriteLine("✅ Goal completed and removed!");
+            Console.WriteLine(" Goal completed and removed!");
         }
 
         SaveGoals(loadedGoals);
