@@ -25,6 +25,6 @@ public static class Abilities
     {
         int healing = roller.Roll("2d4", user.GetMod(user.GetWis()));
         target.HP += healing;
-        Console.WriteLine($"{user.GetType().Name} casts Heal and restores {healing} HP to {target.GetType().Name}.");
+        Console.WriteLine($"You cast Heal and restores {healing} HP to yourself.");
     }
 }

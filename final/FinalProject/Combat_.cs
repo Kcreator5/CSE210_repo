@@ -31,7 +31,7 @@ public class Combat
             Console.WriteLine($"[1] Melee Attack. +{player.GetMod(player.GetStr())} to hit, 1d4 + {player.GetMod(player.GetStr())} damage.");
             Console.WriteLine($"[2] Ranged Attack. +{player.GetMod(player.GetDex())} to hit, 1d10 + {player.GetMod(player.GetDex())} damage.");
             Console.WriteLine($"[3] Cast Firebolt (2d6 + {player.GetMod(player.GetInt())} )");
-            Console.WriteLine($"[4] Cast Heal (2d4 + WIS mod)");
+            Console.WriteLine($"[4] Cast Heal (2d4 + {player.GetMod(player.GetWis())} healing)");
             Console.Write("Choice: ");
             string input = Console.ReadLine();
 
@@ -48,7 +48,7 @@ public class Combat
                 if (Attack_roll >= monster.AC)
                 {
                     Console.WriteLine("You Hit! :D");
-                    Damage = roller.Roll("1d4", player.GetMod(player.GetStr()));
+                    Damage = roller.Roll("1d6", player.GetMod(player.GetStr()));
                     Console.WriteLine($"You strike with a melee hit for {Damage} damage!");
                     monster.HP -= Damage;
                 }
